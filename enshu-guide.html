@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>富山大学遠州流茶道部 薄茶点法</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1e1810;--paper:#f6f0e4;--paper2:#ede5d3;--gold:#b8943f;--gold-light:#d4af68;--matcha:#4a6741;--rust:#8b4a2e;--indigo:#2e3f5c;--cream:#faf6ee;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:'Noto Serif JP','Hiragino Mincho ProN',serif;min-height:100vh;overflow-x:hidden;}
+#landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ink);position:relative;overflow:hidden;}
+.bg-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(184,148,63,.07) 39px,rgba(184,148,63,.07) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(184,148,63,.07) 39px,rgba(184,148,63,.07) 40px);pointer-events:none;}
+.landing-inner{position:relative;text-align:center;padding:40px 30px;}
+.mon{width:90px;height:90px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto 28px;display:flex;align-items:center;justify-content:center;animation:spinl 25s linear infinite;}
+.mon svg{animation:spinl 25s linear infinite reverse;}
+@keyframes spinl{to{transform:rotate(360deg);}}
+.l-org{color:var(--gold-light);font-size:11px;letter-spacing:4px;margin-bottom:8px;font-family:'Noto Sans JP',sans-serif;font-weight:300;}
+.l-title{color:#f0e8d4;font-size:clamp(20px,5vw,32px);letter-spacing:6px;font-weight:700;line-height:1.6;margin-bottom:8px;}
+.l-sub{color:rgba(240,232,212,.4);font-size:11px;letter-spacing:3px;margin-bottom:44px;font-family:'Noto Sans JP',sans-serif;}
+.start-btn{display:inline-block;padding:15px 46px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Noto Serif JP',serif;font-size:14px;letter-spacing:4px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
+.start-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);transition:.3s;z-index:-1;}
+.start-btn:hover::before{transform:translateX(0);}
+.start-btn:hover{color:var(--ink);}
+.l-count{margin-top:20px;color:rgba(240,232,212,.25);font-size:11px;letter-spacing:2px;font-family:'Noto Sans JP',sans-serif;}
+#app{display:none;min-height:100vh;flex-direction:column;}
+.app-header{background:var(--ink);padding:12px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.4);}
+.back-btn{color:var(--gold);background:none;border:none;font-size:20px;cursor:pointer;padding:2px 6px;line-height:1;}
+.header-text{flex:1;}
+.header-org{color:var(--gold-light);font-size:9px;letter-spacing:2px;font-family:'Noto Sans JP',sans-serif;font-weight:300;}
+.header-title{color:#f0e8d4;font-size:14px;letter-spacing:3px;font-weight:700;}
+.header-counter{color:var(--gold);font-size:24px;font-weight:700;}
+.header-counter span{color:rgba(240,232,212,.3);font-size:12px;font-weight:400;}
+.progress-wrap{height:3px;background:rgba(255,255,255,.08);}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--matcha),var(--gold));transition:width .5s cubic-bezier(.4,0,.2,1);}
+.phase-strip{padding:8px 18px;background:var(--paper2);border-bottom:1px solid rgba(0,0,0,.08);display:flex;align-items:center;gap:8px;}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.phase-label{font-size:11px;letter-spacing:2px;color:#6a5a40;font-family:'Noto Sans JP',sans-serif;}
+.phase-steps{margin-left:auto;font-size:10px;color:#aaa;font-family:'Noto Sans JP',sans-serif;}
+.step-content{flex:1;padding:20px 18px 120px;max-width:580px;margin:0 auto;width:100%;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.step-num-row{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.step-circle{width:52px;height:52px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,.2);}
+.step-title{font-size:19px;font-weight:700;color:var(--ink);letter-spacing:1px;line-height:1.3;}
+.done-badge{display:inline-block;font-size:10px;padding:1px 8px;border-radius:10px;margin-top:3px;font-family:'Noto Sans JP',sans-serif;border:1px solid var(--matcha);color:var(--matcha);}
+.illus-wrap{background:white;border-radius:14px;padding:14px;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 12px rgba(0,0,0,.05);margin-bottom:14px;display:flex;align-items:center;justify-content:center;min-height:160px;}
+.illus-wrap svg{max-width:100%;height:auto;display:block;}
+.card{background:white;border-radius:14px;padding:20px;font-size:14px;line-height:2;color:#2a2010;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 12px rgba(0,0,0,.05);margin-bottom:12px;letter-spacing:.5px;}
+.tip{border-left:3px solid var(--gold);background:rgba(184,148,63,.08);border-radius:0 10px 10px 0;padding:11px 14px;font-size:12px;color:#5a4520;margin-bottom:18px;letter-spacing:.5px;font-family:'Noto Sans JP',sans-serif;}
+.minimap-title{font-size:10px;color:#aaa;letter-spacing:2px;margin-bottom:7px;font-family:'Noto Sans JP',sans-serif;}
+.minimap{display:flex;flex-wrap:wrap;gap:4px;}
+.mini-dot{width:21px;height:21px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;cursor:pointer;transition:all .15s;font-family:'Noto Sans JP',sans-serif;border:1px solid transparent;}
+.mini-dot:hover{transform:scale(1.2);}
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid rgba(0,0,0,.1);padding:10px 18px 18px;display:flex;gap:8px;justify-content:center;box-shadow:0 -6px 24px rgba(0,0,0,.09);}
+.nav-btn{flex:1;max-width:130px;padding:13px;border-radius:12px;font-family:'Noto Serif JP',serif;font-size:14px;cursor:pointer;transition:all .18s;border:1px solid transparent;letter-spacing:1px;}
+.nav-btn:active{transform:scale(.97);}
+.btn-prev{background:white;border-color:#ddd;color:#5a4a30;}
+.btn-prev:disabled{color:#ccc;border-color:#eee;cursor:not-allowed;}
+.btn-done{background:white;max-width:88px;font-size:11px;font-family:'Noto Sans JP',sans-serif;}
+.btn-done.active{color:white;}
+.btn-next{background:var(--ink);color:var(--gold);border-color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.2);}
+.btn-next:disabled{background:#ddd;color:#aaa;box-shadow:none;border-color:#ddd;cursor:not-allowed;}
+#complete{display:none;min-height:100vh;background:var(--ink);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px;}
+.cmp-icon{font-size:64px;margin-bottom:24px;}
+.cmp-title{color:var(--gold);font-size:26px;letter-spacing:4px;margin-bottom:10px;}
+.cmp-sub{color:rgba(240,232,212,.4);font-size:12px;letter-spacing:2px;margin-bottom:40px;font-family:'Noto Sans JP',sans-serif;}
+.restart-btn{padding:14px 40px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:'Noto Serif JP',serif;font-size:14px;letter-spacing:3px;cursor:pointer;transition:all .3s;}
+.restart-btn:hover{background:var(--gold);color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div id="landing">
+  <div class="bg-grid"></div>
+  <div class="landing-inner">
+    <div class="mon">
+      <svg width="50" height="50" viewBox="0 0 50 50">
+        <circle cx="25" cy="25" r="20" fill="none" stroke="#b8943f" stroke-width="1"/>
+        <circle cx="25" cy="25" r="14" fill="none" stroke="#b8943f" stroke-width=".5"/>
+        <text x="25" y="30" text-anchor="middle" fill="#b8943f" font-size="16" font-family="serif">遠</text>
+      </svg>
+    </div>
+    <div class="l-org">富山大学遠州流茶道部</div>
+    <div class="l-title">薄茶点法<br>手順ガイド</div>
+    <div class="l-sub">炉　四畳半切</div>
+    <button class="start-btn" onclick="startApp()">お稽古を始める</button>
+    <div class="l-count">全 58 手順</div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="app-header">
+    <button class="back-btn" onclick="goLanding()">←</button>
+    <div class="header-text">
+      <div class="header-org">富山大学遠州流茶道部</div>
+      <div class="header-title">薄茶点法</div>
+    </div>
+    <div class="header-counter"><span id="cur-num">1</span><span> / 58</span></div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+  <div class="phase-strip">
+    <div class="phase-dot" id="phase-dot"></div>
+    <div class="phase-label" id="phase-label"></div>
+    <div class="phase-steps" id="phase-steps"></div>
+  </div>
+  <div class="step-content" id="step-content"></div>
+  <div class="nav-bar">
+    <button class="nav-btn btn-prev" id="btn-prev" onclick="go(-1)">← 前へ</button>
+    <button class="nav-btn btn-done" id="btn-done" onclick="toggleDone()">完了</button>
+    <button class="nav-btn btn-next" id="btn-next" onclick="go(1)">次へ →</button>
+  </div>
+</div>
+
+<div id="complete">
+  <div class="cmp-icon">🍵</div>
+  <div class="cmp-title">お点前 完了</div>
+  <div class="cmp-sub">全 58 手順を終えました</div>
+  <button class="restart-btn" onclick="restart()">最初から</button>
+</div>
+
+<script>
+// ============================================================
+// SVG ILLUSTRATIONS - 図1〜図5に基づく正確な配置
+// ============================================================
+// 部屋の構造（図1ベース）:
+// - 道具畳の右下角に炉が切り込まれている
+// - 釜は炉の中
+// - 水指は炉から離れて上中央
+// - 茶器・茶碗は水指の下（真置）
+// - 建水は左
+// - 本座は中央〜下、釜に向かって座る（"<"字型）
+// - 蓋置は本座の右、炉の左縁付近
+// viewBox: 0 0 280 220
+
+const PALETTE = {
+  paper: '#f5ede0',
+  tatami: '#ede0c8',
+  wall: '#2a1f10',
+  ink: '#3a2a1a',
+  gold: '#b8943f',
+  matcha: '#4a6741',
+  rust: '#8b4a2e',
+  blue: '#2e3f5c',
+  water: '#4a7ab4',
+  flesh: '#c8956a',
+  cloth: '#e8d8c0',
+};
+
+// 部屋の基本構造（炉が右下角に切り込み）
+function room(){
+  return `
+<rect x="0" y="0" width="280" height="220" fill="${PALETTE.paper}"/>
+<line x1="8" y1="115" x2="180" y2="115" stroke="#c8b89a" stroke-width=".5" stroke-dasharray="4,3"/>
+<line x1="94" y1="8" x2="94" y2="115" stroke="#c8b89a" stroke-width=".5" stroke-dasharray="4,3"/>
+<rect x="8" y="8" width="264" height="204" fill="none" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+<path d="M 180,115 L 180,212 M 180,115 L 272,115" fill="none" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+  `;
+}
+
+// 釜（炉の中、右下角）
+function kama(label){
+  label = label !== false;
+  return `
+<rect x="195" y="128" width="65" height="65" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+<rect x="201" y="134" width="53" height="53" fill="none" stroke="${PALETTE.ink}" stroke-width=".8"/>
+<circle cx="227" cy="160" r="20" fill="none" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+<circle cx="227" cy="160" r="2.5" fill="${PALETTE.ink}"/>
+${label ? `<text x="227" y="206" text-anchor="middle" font-size="8" fill="#5a4a30" font-family="serif">釜</text>` : ''}
+  `;
+}
+
+// 本座（"<"字型の角度ライン、釜に向かう）
+function honza(x,y,emph){
+  x = x || 130; y = y || 160;
+  const c = emph ? PALETTE.gold : '#5a4a30';
+  const w = emph ? 2 : 1.4;
+  return `
+<path d="M ${x-12},${y-22} L ${x+8},${y} L ${x-12},${y+22}" fill="none" stroke="${c}" stroke-width="${w}"/>
+<text x="${x-26}" y="${y+4}" font-size="8" fill="${c}" font-family="serif">本座</text>
+  `;
+}
+
+// 水指（円）
+function mizusashi(x,y,emph){
+  x = x || 115; y = y || 55;
+  const c = emph ? PALETTE.matcha : '#5a7050';
+  const w = emph ? 2.5 : 1.3;
+  const fill = emph ? '#d4e8d0' : 'white';
+  return `<circle cx="${x}" cy="${y}" r="22" fill="${fill}" stroke="${c}" stroke-width="${w}"/>
+<text x="${x}" y="${y+3}" text-anchor="middle" font-size="9" fill="${c}" font-family="serif">水指</text>`;
+}
+
+// 茶器（小円）
+function chaki(x,y,emph){
+  x = x || 130; y = y || 100;
+  const c = emph ? PALETTE.rust : '#7a4a3a';
+  const w = emph ? 2.5 : 1.3;
+  const fill = emph ? '#e8d4cc' : 'white';
+  return `<circle cx="${x}" cy="${y}" r="11" fill="${fill}" stroke="${c}" stroke-width="${w}"/>
+<text x="${x}" y="${y+3}" text-anchor="middle" font-size="7" fill="${c}" font-family="serif">茶器</text>`;
+}
+
+// 茶碗（中円）
+function chawan(x,y,emph){
+  x = x || 105; y = y || 113;
+  const c = emph ? PALETTE.blue : '#3a4a6a';
+  const w = emph ? 2.5 : 1.3;
+  const fill = emph ? '#d4d8ec' : 'white';
+  return `<circle cx="${x}" cy="${y}" r="14" fill="${fill}" stroke="${c}" stroke-width="${w}"/>
+<text x="${x}" y="${y+3}" text-anchor="middle" font-size="7" fill="${c}" font-family="serif">茶碗</text>`;
+}
+
+// 建水（円、左）
+function kensui(x,y,emph){
+  x = x || 50; y = y || 150;
+  const c = emph ? '#6a5030' : '#7a6040';
+  const w = emph ? 2.5 : 1.3;
+  const fill = emph ? '#d4c4a4' : 'white';
+  return `<circle cx="${x}" cy="${y}" r="13" fill="${fill}" stroke="${c}" stroke-width="${w}"/>
+<text x="${x}" y="${y+3}" text-anchor="middle" font-size="7" fill="${c}" font-family="serif">建水</text>`;
+}
+
+// 蓋置（小円、炉の左縁付近）
+function futaoki(x,y,emph){
+  x = x || 170; y = y || 175;
+  const c = emph ? PALETTE.gold : '#8a7040';
+  const w = emph ? 2.5 : 1.3;
+  const fill = emph ? '#e8d8a0' : 'white';
+  return `<circle cx="${x}" cy="${y}" r="7" fill="${fill}" stroke="${c}" stroke-width="${w}"/>
+<text x="${x+12}" y="${y+3}" font-size="7" fill="${c}" font-family="serif">蓋置</text>`;
+}
+
+// 矢印
+function arrow(x1,y1,x2,y2,color){
+  color = color || PALETTE.gold;
+  const dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy);
+  const nx=dx/len, ny=dy/len, px=-ny, py=nx;
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="1.5" stroke-dasharray="4,2"/>
+<polygon points="${x2},${y2} ${x2-nx*8+px*4},${y2-ny*8+py*4} ${x2-nx*8-px*4},${y2-ny*8-py*4}" fill="${color}"/>`;
+}
+
+// ラベル
+function lbl(x,y,t,c){
+  c = c || PALETTE.gold;
+  return `<text x="${x}" y="${y}" text-anchor="middle" font-size="9" fill="${c}" font-family="serif">${t}</text>`;
+}
+function lblL(x,y,t,c){
+  c = c || PALETTE.gold;
+  return `<text x="${x}" y="${y}" font-size="9" fill="${c}" font-family="serif">${t}</text>`;
+}
+
+// SVGラッパー
+function svg(body){
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 220" width="100%" style="max-width:340px">${body}</svg>`;
+}
+
+// ============================================================
+// 各手順のSVG
+// ============================================================
+const SVG = {};
+
+// 1: 入室・挨拶
+SVG[1] = svg(`${room()}${kama()}
+<rect x="8" y="8" width="40" height="204" fill="#d4c8a8" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+<text x="28" y="115" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif" transform="rotate(-90,28,115)">茶道口</text>
+<ellipse cx="75" cy="120" rx="14" ry="10" fill="${PALETTE.flesh}"/>
+<ellipse cx="75" cy="103" rx="11" ry="13" fill="#e8d0b0"/>
+<line x1="62" y1="125" x2="55" y2="145" stroke="${PALETTE.flesh}" stroke-width="5" stroke-linecap="round"/>
+<line x1="88" y1="125" x2="95" y2="145" stroke="${PALETTE.flesh}" stroke-width="5" stroke-linecap="round"/>
+${mizusashi(115, 55)}
+${lbl(75, 170, '「薄茶を差し上げます」')}`);
+
+// 2: 水指を運ぶ
+SVG[2] = svg(`${room()}${kama()}
+${mizusashi(115, 55, true)}
+${arrow(75, 90, 110, 60)}
+${lblL(150, 50, '二つ目右')}
+<line x1="115" y1="33" x2="115" y2="77" stroke="${PALETTE.gold}" stroke-width="1" stroke-dasharray="3,2"/>
+${lbl(115, 200, '水指を二つ目右に置く')}`);
+
+// 3: 茶器・茶碗を運ぶ（真置）
+SVG[3] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}
+${chaki(125, 95, true)}
+${chawan(105, 115, true)}
+<line x1="115" y1="33" x2="115" y2="135" stroke="${PALETTE.gold}" stroke-width=".8" stroke-dasharray="3,2"/>
+${lblL(140, 100, '真置')}
+${lbl(140, 200, '茶器と茶碗の中心を一直線に')}`);
+
+// 4: 建水を運ぶ
+SVG[4] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(125, 95)}${chawan(105, 115)}
+${kensui(50, 150, true)}
+${arrow(20, 150, 42, 150)}
+${lbl(140, 200, '茶道口をしめ切る')}`);
+
+// 5: 本座
+SVG[5] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(125, 95)}${chawan(105, 115)}${kensui(50, 150)}
+${honza(135, 165, true)}
+${lbl(150, 200, '本座 = 炉縁左角から1/3の延長線上')}`);
+
+// 6: 建水・蓋置を置く
+SVG[6] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(125, 95)}${chawan(105, 115)}
+${kensui(50, 150, true)}${honza(135, 165)}
+${futaoki(170, 173, true)}
+${lblL(180, 152, '炉縁左縁・三つ目')}
+${lbl(140, 200, '蓋置の正面を向こうに')}`);
+
+// 7: 柄杓を蓋置に
+SVG[7] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(125, 95)}${chawan(105, 115)}${kensui(50, 150)}${honza(135, 165)}
+${futaoki(170, 173, true)}
+<rect x="120" y="170" width="48" height="5" fill="#a07850" stroke="#6a4a20" stroke-width=".8"/>
+<ellipse cx="172" cy="172" rx="6" ry="4" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+${lblL(135, 158, '柄杓')}
+${lbl(140, 200, '合を蓋置に、節で置く')}`);
+
+// 8: 挨拶（道具置合せ - 図1再現）
+SVG[8] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(125, 95)}${chawan(105, 115)}${kensui(50, 150)}${honza(135, 165)}${futaoki(170, 173)}
+<rect x="120" y="170" width="48" height="5" fill="#a07850" stroke="#6a4a20" stroke-width=".8"/>
+${lbl(140, 200, '「どうぞお楽に」')}`);
+
+// 9: 茶器・茶碗を移す（図2）
+SVG[9] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${kensui(50, 150)}${futaoki(170, 173)}
+${chawan(168, 132, true)}
+${chaki(155, 152, true)}
+${honza(125, 175)}
+${arrow(115, 100, 150, 140)}
+${lbl(140, 200, '炉縁左角から1/3・1/4の線上')}`);
+
+// 10: コキブクサ（茶器を清める）
+SVG[10] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(168, 132)}${kensui(50, 150)}${futaoki(170, 173)}${honza(125, 175)}
+${chaki(155, 152, true)}
+<path d="M 148,145 Q 155,138 162,145" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+<path d="M 148,159 Q 155,166 162,159" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+${lblL(70, 100, '①向こう')}
+${lblL(70, 115, '②前')}
+${lbl(140, 200, '「マ」の字に清める')}`);
+
+// 11: 茶器の蓋を開ける
+SVG[11] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(168, 132)}${kensui(50, 150)}${futaoki(170, 173)}${honza(125, 175)}
+${chaki(155, 152)}
+<path d="M 146,150 Q 155,140 164,150" fill="#f0d0c0" stroke="${PALETTE.rust}" stroke-width="1.5"/>
+${arrow(155, 140, 130, 90, '#b8943f')}
+${chaki(130, 88, true)}
+${lblL(60, 95, '蓋を半月に開け')}
+${lbl(140, 200, '水指のハジキ線の向こう側へ')}`);
+
+// 12: タタミブクサ（茶杓を清める）
+SVG[12] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(168, 132)}${kensui(50, 150)}${futaoki(170, 173)}${honza(125, 175)}${chaki(130, 88)}
+<rect x="60" y="86" width="60" height="6" fill="#c8a070" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="64" cy="89" rx="6" ry="3.5" fill="${PALETTE.gold}" stroke="#6a4a20" stroke-width="1"/>
+${lblL(58, 76, '茶杓')}
+${lbl(75, 110, '①表→②裏→③脇')}
+${lbl(140, 200, '茶杓の表・裏・脇を清める')}`);
+
+// 13: 茶筅を取り出す（図3）
+SVG[13] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(168, 132)}${kensui(50, 150)}${honza(125, 175)}${chaki(130, 88)}
+<rect x="60" y="86" width="60" height="6" fill="#c8a070" stroke="#6a4a20" stroke-width="1"/>
+<g transform="translate(146,80)">
+  <rect x="0" y="0" width="12" height="20" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+  <line x1="3" y1="6" x2="3" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+  <line x1="6" y1="6" x2="6" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+  <line x1="9" y1="6" x2="9" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+</g>
+${lblL(155, 75, '茶筅')}
+${arrow(142, 90, 148, 90)}
+${lbl(140, 200, '茶器の右・三つ目に置く')}`);
+
+// 14: 茶巾を置く
+SVG[14] = svg(`${room()}${kama()}
+${chawan(168, 132)}${kensui(50, 150)}${honza(125, 175)}${chaki(130, 88)}
+<rect x="60" y="86" width="60" height="6" fill="#c8a070" stroke="#6a4a20" stroke-width="1"/>
+<g transform="translate(146,80)"><rect x="0" y="0" width="12" height="20" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/></g>
+${mizusashi(115, 55, true)}
+<rect x="105" y="33" width="20" height="11" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1.3"/>
+${lblL(130, 38, '茶巾')}
+${lbl(140, 200, '水指の蓋のハジキの手前に置く')}`);
+
+// 15: 柄杓を構える
+SVG[15] = svg(`${room()}${kama()}
+${chawan(168, 132)}${kensui(50, 150)}${honza(125, 175)}${chaki(130, 88)}${mizusashi(115, 55)}
+<rect x="60" y="142" width="90" height="6" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="58" cy="145" rx="14" ry="8" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+<rect x="80" y="120" width="30" height="22" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1.3"/>
+<line x1="80" y1="143" x2="110" y2="143" stroke="${PALETTE.gold}" stroke-width="2"/>
+${lblL(118, 130, 'フクサ')}
+${lblL(45, 165, '合')}
+${lbl(140, 200, 'フクサと柄杓を直角に交差')}`);
+
+// 16: 釜の蓋を清める
+SVG[16] = svg(`${room()}${kama(false)}
+<ellipse cx="227" cy="118" rx="22" ry="8" fill="#c8b89a" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+${lblL(255, 122, '蓋')}
+<path d="M 210,118 Q 227,103 244,118" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+<path d="M 210,124 Q 227,138 244,124" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+${lblL(80, 110, '①向こう')}
+${lblL(80, 125, '②前')}
+${lblL(80, 140, '「マ」の字')}
+${futaoki(170, 173, true)}
+${arrow(220, 130, 180, 170)}
+${lbl(140, 205, '先端で露を切って蓋置へ')}`);
+
+// 17: 湯を汲む
+SVG[17] = svg(`${room()}${kama()}
+${chawan(168, 132, true)}
+<rect x="60" y="145" width="170" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="227" cy="147" rx="16" ry="10" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+${lblL(245, 130, '水平に')}
+${arrow(215, 147, 180, 137)}
+${lbl(140, 205, '湯一柄杓を茶碗へ')}`);
+
+// 18: 柄杓を釜にかける（図4再現）
+SVG[18] = svg(`${room()}
+<rect x="195" y="128" width="65" height="65" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1.5"/>
+<rect x="201" y="134" width="53" height="53" fill="none" stroke="${PALETTE.ink}" stroke-width=".8"/>
+<circle cx="227" cy="160" r="20" fill="none" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+<circle cx="227" cy="160" r="2.5" fill="${PALETTE.ink}"/>
+<line x1="80" y1="158" x2="208" y2="158" stroke="#a07850" stroke-width="2.5"/>
+<line x1="80" y1="163" x2="208" y2="163" stroke="#a07850" stroke-width="2.5"/>
+<circle cx="210" cy="160" r="9" fill="#999" stroke="#444" stroke-width="1.5"/>
+${lblL(60, 145, '切止')}
+${lblL(150, 145, '節')}
+${lblL(215, 140, '合（伏せる）')}
+<line x1="195" y1="170" x2="195" y2="200" stroke="${PALETTE.gold}" stroke-width=".8" stroke-dasharray="3,2"/>
+${lblL(160, 210, '炉縁右角から1/3')}
+${lbl(140, 220, '柄杓のかけ方  (図4)', '#888')}`);
+
+// 19: 茶筅で〆の字
+SVG[19] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}
+${chawan(168, 132, true)}
+<path d="M 158,122 L 178,142 M 158,132 L 178,122 M 178,122 L 158,142" stroke="${PALETTE.gold}" stroke-width="2" fill="none"/>
+<text x="168" y="105" text-anchor="middle" font-size="14" fill="${PALETTE.gold}" font-family="serif">〆</text>
+${arrow(154, 132, 130, 145)}
+${chawan(120, 152)}
+${lblL(85, 158, '居前へ引く')}
+${lbl(140, 210, '「〆」の字をかいてから引く')}`);
+
+// 20: 茶巾で絞る
+SVG[20] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${chawan(120, 152)}
+${kensui(50, 150, true)}
+<rect x="40" y="125" width="22" height="14" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1.3"/>
+<path d="M 38,142 Q 50,130 62,142" fill="none" stroke="${PALETTE.water}" stroke-width="1.5" stroke-dasharray="3,2"/>
+${lblL(70, 130, '①向こう')}
+${lblL(70, 145, '②前')}
+${lbl(140, 205, '建水の上でしぼる')}`);
+
+// 21: 茶筅通し
+SVG[21] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}
+${chawan(120, 152, true)}
+<g transform="translate(114,128)">
+  <rect x="0" y="0" width="12" height="20" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+  <line x1="3" y1="6" x2="3" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+  <line x1="6" y1="6" x2="6" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+  <line x1="9" y1="6" x2="9" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+</g>
+<text x="160" y="155" font-size="16" fill="${PALETTE.gold}" font-family="serif">ゆ</text>
+${lblL(160, 170, 'の字に抜く')}
+${lbl(140, 205, '茶筅通し')}`);
+
+// 22: 茶碗を温める
+SVG[22] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}
+${chawan(120, 152, true)}
+<path d="M 112,138 Q 120,130 128,138" fill="none" stroke="#ff8c42" stroke-width="1.5"/>
+<path d="M 116,134 Q 120,126 124,134" fill="none" stroke="#ff8c42" stroke-width="1.2"/>
+${lblL(135, 130, '湯気')}
+${arrow(135, 155, 55, 150)}
+${kensui(50, 150, true)}
+${lbl(140, 205, 'よく温めて建水へ')}`);
+
+// 23: 茶杓・茶器を取る
+SVG[23] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(120, 152)}${kensui(50, 150)}
+${chaki(130, 88, true)}
+<rect x="60" y="86" width="60" height="6" fill="#c8a070" stroke="#6a4a20" stroke-width="1"/>
+${arrow(95, 95, 75, 110, '#888')}
+${arrow(150, 95, 165, 110, '#888')}
+${lbl(140, 205, '空手水→同時に取る')}`);
+
+// 24: 茶を掬う
+SVG[24] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${kensui(50, 150)}
+${chaki(80, 100, true)}${chawan(140, 130, true)}
+<path d="M 70,90 Q 80,80 90,90" fill="#f0d0c0" stroke="${PALETTE.rust}" stroke-width="1.3"/>
+${lblL(58, 85, '蓋')}
+${arrow(95, 105, 130, 125)}
+${lblL(105, 95, '二すくい半')}
+${lbl(140, 205, '一つ打って茶を払う')}`);
+
+// 25: 茶器の蓋をする
+SVG[25] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${kensui(50, 150)}${chawan(140, 130)}
+${chaki(80, 100, true)}
+<path d="M 70,93 Q 80,85 90,93" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+<path d="M 70,107 Q 80,115 90,107" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+${lblL(105, 80, '口を「マ」の字に清め')}
+${arrow(70, 105, 60, 105, '#888')}
+${lblL(35, 95, '蓋を')}
+${lblL(35, 108, 'する')}
+${lbl(140, 205, '蓋をしめて元に戻す')}`);
+
+// 26: 茶杓を茶器に置く
+SVG[26] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${kensui(50, 150)}${chawan(140, 130)}
+${chaki(130, 88, true)}
+<rect x="60" y="86" width="60" height="6" fill="#c8a070" stroke="#6a4a20" stroke-width="1"/>
+${lblL(58, 76, '茶杓')}
+${lbl(140, 205, '二つ打って茶器に置く')}`);
+
+// 27: 湯を入れる
+SVG[27] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}
+${chawan(140, 130, true)}
+<rect x="60" y="145" width="170" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="227" cy="147" rx="16" ry="10" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+${arrow(215, 147, 155, 135)}
+${lblL(70, 165, '湯返し→適量入れる')}
+${lbl(140, 205, '残りを戻し釜にかける')}`);
+
+// 28: 茶を点てる
+SVG[28] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}
+${chawan(130, 135, true)}
+<g transform="translate(124,113)">
+  <rect x="0" y="0" width="12" height="20" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+  <line x1="3" y1="6" x2="3" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+  <line x1="6" y1="6" x2="6" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+  <line x1="9" y1="6" x2="9" y2="18" stroke="${PALETTE.ink}" stroke-width=".5"/>
+</g>
+<path d="M 118,135 Q 130,125 142,135" fill="none" stroke="${PALETTE.gold}" stroke-width="2" stroke-dasharray="4,2"/>
+<path d="M 118,140 Q 130,150 142,140" fill="none" stroke="${PALETTE.gold}" stroke-width="2" stroke-dasharray="4,2"/>
+${lbl(140, 205, '茶を点てる 🍵', PALETTE.matcha)}`);
+
+// 29: 茶碗を出す
+SVG[29] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${futaoki(170, 173)}${honza(125, 175)}
+${chawan(95, 130, true)}
+${arrow(80, 145, 55, 195)}
+${chawan(45, 200)}
+${lblL(60, 215, '切畳へ')}
+${lbl(180, 215, '中をあらためて出す')}`);
+
+// 30: 服加減の挨拶
+SVG[30] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${futaoki(170, 173)}${honza(125, 175)}
+<rect x="20" y="20" width="60" height="40" rx="20" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1" opacity=".7"/>
+<text x="50" y="45" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif">客</text>
+${lblL(85, 38, '「結構でございます」')}
+${lbl(140, 205, '茶巾を釜の蓋に移す')}`);
+
+// 31: 水指の蓋を開ける
+SVG[31] = svg(`${room()}${kama()}
+${chaki(130, 88)}${honza(125, 175)}
+${mizusashi(115, 55, true)}
+<ellipse cx="115" cy="35" rx="22" ry="8" fill="#b8d4b0" stroke="${PALETTE.matcha}" stroke-width="1.3"/>
+${lblL(140, 38, '蓋')}
+${kensui(50, 150, true)}
+${arrow(95, 35, 60, 145)}
+${lbl(140, 205, '建水の上で露を拭う')}`);
+
+// 32: 水指の蓋を立てかける
+SVG[32] = svg(`${room()}${kama()}
+${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}
+${mizusashi(115, 55, true)}
+<rect x="140" y="35" width="6" height="40" fill="#b8d4b0" stroke="${PALETTE.matcha}" stroke-width="1.3"/>
+${lblL(150, 60, '蓋を立てる')}
+${lbl(140, 205, '水指の右側に立てかける')}`);
+
+// 33: 中水を入れる
+SVG[33] = svg(`${room()}${kama()}
+${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}
+${mizusashi(115, 55, true)}
+<rect x="125" y="58" width="100" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="135" cy="60" rx="12" ry="7" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+${arrow(225, 60, 200, 130)}
+${lblL(165, 50, '水を一杓→釜へ')}
+${lbl(140, 205, '扱い柄杓で中水・湯返し')}`);
+
+// 34: 茶碗が戻る
+SVG[34] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}
+${chawan(95, 130, true)}
+<rect x="20" y="20" width="60" height="40" rx="20" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1" opacity=".7"/>
+<text x="50" y="45" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif">客</text>
+${lblL(85, 38, '「ごちそう様」')}
+${lbl(140, 205, '一礼して受ける')}`);
+
+// 35: 湯をすすぐ
+SVG[35] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}
+${chawan(120, 135, true)}
+<rect x="60" y="145" width="170" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+${arrow(215, 147, 140, 140)}
+${lbl(140, 205, '湯一柄杓→茶碗をすすぐ')}`);
+
+// 36: お代わりを尋ねる
+SVG[36] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${honza(125, 175)}
+${chawan(120, 135, true)}${kensui(50, 150, true)}
+${arrow(105, 140, 65, 150)}
+${lblL(85, 100, '「今一服如何ですか」')}
+${lbl(140, 205, '建水にこぼして尋ねる')}`);
+
+// 37: 仕舞いの挨拶
+SVG[37] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${chawan(120, 135)}${honza(125, 175)}
+<rect x="20" y="20" width="60" height="40" rx="20" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1" opacity=".7"/>
+<text x="50" y="40" text-anchor="middle" font-size="8" fill="#5a4a30" font-family="serif">「充分頂戴」</text>
+${lblL(85, 38, '客から)')}
+${lblL(85, 55, '「仕舞わせて頂きます」')}
+${lbl(140, 205, '水を一柄杓汲む')}`);
+
+// 38: 水を茶碗に入れる
+SVG[38] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}
+${chawan(120, 135, true)}
+<rect x="60" y="60" width="170" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+${arrow(120, 65, 120, 125)}
+${lbl(140, 205, '水一柄杓→茶碗→釜')}`);
+
+// 39: 茶筅をすすぐ
+SVG[39] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}
+${chawan(120, 135, true)}
+<g transform="translate(114,113)"><rect x="0" y="0" width="12" height="20" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/></g>
+${arrow(135, 122, 165, 100)}
+${lblL(150, 95, '横から抜く')}
+${lbl(140, 205, '元の位置に戻す')}`);
+
+// 40: 茶碗・茶筅を片付け
+SVG[40] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${honza(125, 175)}
+${chawan(120, 135, true)}${kensui(50, 150, true)}
+<rect x="35" y="125" width="22" height="14" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1.3"/>
+<text x="46" y="120" text-anchor="middle" font-size="12" fill="${PALETTE.gold}" font-family="serif">し</text>
+${lblL(60, 138, '「し」の字')}
+${lbl(140, 205, '茶筅を茶碗に置く')}`);
+
+// 41: 茶杓を清める
+SVG[41] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(130, 88)}${kensui(50, 150)}${honza(125, 175)}${chawan(120, 135)}
+<rect x="60" y="86" width="60" height="6" fill="#c8a070" stroke="#6a4a20" stroke-width="1"/>
+${lblL(58, 76, '①かい先')}
+${lblL(78, 105, '②裏')}
+${lblL(102, 105, '③脇')}
+${lbl(140, 205, 'タタミブクサで清める')}`);
+
+// 42: 茶器を水指前へ
+SVG[42] = svg(`${room()}${kama()}
+${kensui(50, 150)}${honza(125, 175)}${chawan(120, 135)}
+${mizusashi(115, 55, true)}
+${chaki(130, 88, true)}
+${arrow(140, 100, 130, 78)}
+${lbl(140, 205, '茶器を水指正面に移す')}`);
+
+// 43: 茶碗を移す（水指前真置）
+SVG[43] = svg(`${room()}${kama()}
+${kensui(50, 150)}${honza(125, 175)}
+${mizusashi(115, 55)}${chaki(115, 88)}
+${chawan(95, 113, true)}
+<line x1="115" y1="33" x2="115" y2="130" stroke="${PALETTE.gold}" stroke-width=".8" stroke-dasharray="3,2"/>
+${lblL(140, 115, '茶器の左')}
+${lblL(140, 128, '三つ目')}
+${lbl(140, 205, '水指前真置')}`);
+
+// 44: 仕舞水
+SVG[44] = svg(`${room()}${kama()}
+${chaki(115, 88)}${chawan(95, 113)}${kensui(50, 150)}${honza(125, 175)}
+${mizusashi(115, 55, true)}
+<rect x="60" y="78" width="65" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="60" cy="80" rx="10" ry="6" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+${lblL(135, 75, '前縁に合を托す')}
+${lbl(140, 205, '仕舞水を汲む')}`);
+
+// 45: 水を釜に
+SVG[45] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(115, 88)}${chawan(95, 113)}${kensui(50, 150)}${honza(125, 175)}
+<rect x="60" y="60" width="170" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+${arrow(80, 62, 220, 62)}
+${lbl(140, 205, '水を釜に入れ、湯返し')}`);
+
+// 46: 突柄杓・釜の蓋
+SVG[46] = svg(`${room()}${kama(false)}
+<ellipse cx="227" cy="118" rx="22" ry="8" fill="#c8b89a" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+${lblL(255, 122, '蓋しめる')}
+${mizusashi(115, 55)}${chaki(115, 88)}${chawan(95, 113)}${kensui(50, 150)}${honza(125, 175)}
+${futaoki(170, 173, true)}
+<rect x="120" y="170" width="48" height="5" fill="#a07850" stroke="#6a4a20" stroke-width=".8"/>
+${lbl(140, 205, '突柄杓→合を蓋置に')}`);
+
+// 47: 水指の蓋をしめる
+SVG[47] = svg(`${room()}${kama()}
+${chaki(115, 88)}${chawan(95, 113)}${honza(125, 175)}
+${mizusashi(115, 55, true)}
+${kensui(50, 150, true)}
+${arrow(60, 35, 50, 135)}
+${lblL(70, 30, 'チリを払う')}
+${lbl(140, 205, 'チリを払ってからしめる')}`);
+
+// 48: ご両器拝見
+SVG[48] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chaki(115, 88)}${chawan(95, 113)}${kensui(50, 150)}${honza(125, 175)}
+<rect x="20" y="20" width="80" height="35" rx="15" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1" opacity=".7"/>
+<text x="60" y="42" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif">「ご両器拝見」</text>
+<rect x="120" y="195" width="48" height="5" fill="#a07850" stroke="#6a4a20" stroke-width=".8"/>
+${futaoki(110, 197, true)}
+${lblL(170, 195, '切畳に向かって')}
+${lbl(140, 215, '蓋置・柄杓を膝頭の線に', '#888')}`);
+
+// 49: 茶器・茶碗を移す
+SVG[49] = svg(`${room()}${kama()}
+${kensui(50, 150)}${honza(125, 175)}
+${mizusashi(115, 55)}
+${chawan(115, 88, true)}
+${chaki(135, 175, true)}
+${arrow(120, 88, 135, 165)}
+${lbl(140, 215, '茶碗→水指正面・茶器→居前')}`);
+
+// 50: 茶器を切畳に
+SVG[50] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(115, 88)}${kensui(50, 150)}${honza(125, 175)}
+${chaki(135, 175, true)}
+<path d="M 125,172 Q 135,164 145,172" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+${arrow(135, 185, 55, 205)}
+${chaki(50, 205)}
+${lblL(70, 215, '切畳の中央へ')}`);
+
+// 51: 茶杓を出す（図5）
+SVG[51] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${chawan(115, 88)}${kensui(50, 150)}${honza(125, 175)}${chaki(50, 205)}
+<rect x="38" y="210" width="40" height="3" fill="#c8a070" stroke="#6a4a20" stroke-width=".8"/>
+${lblL(85, 215, '茶杓を切畳に', '#888')}`);
+
+// 52: フクサを腰に
+SVG[52] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}${kensui(50, 150)}${honza(125, 175)}
+<rect x="85" y="155" width="30" height="22" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1.3"/>
+${lblL(100, 150, 'フクサ')}
+${arrow(118, 168, 130, 168)}
+${lbl(140, 205, 'ワを取ってさばき、腰に')}`);
+
+// 53: 柄杓・蓋置を水屋へ
+SVG[53] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}
+<rect x="8" y="8" width="40" height="204" fill="#d4c8a8" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+<text x="28" y="115" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif" transform="rotate(-90,28,115)">水屋へ</text>
+<rect x="55" y="158" width="80" height="5" fill="#a07850" stroke="#6a4a20" stroke-width="1"/>
+<ellipse cx="55" cy="160" rx="10" ry="6" fill="${PALETTE.tatami}" stroke="${PALETTE.ink}" stroke-width="1"/>
+${futaoki(75, 175, true)}
+${arrow(53, 160, 38, 160)}
+${lbl(140, 205, '合を水平に保って下げる')}`);
+
+// 54: 茶碗を水屋へ
+SVG[54] = svg(`${room()}${kama()}
+${mizusashi(115, 55)}
+<rect x="8" y="8" width="40" height="204" fill="#d4c8a8" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+<text x="28" y="115" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif" transform="rotate(-90,28,115)">水屋へ</text>
+${chawan(90, 100, true)}
+${arrow(72, 100, 50, 100)}
+${lbl(140, 205, '左掌に受けて水屋へ')}`);
+
+// 55: 水指を水屋へ
+SVG[55] = svg(`${room()}${kama()}
+<rect x="8" y="8" width="40" height="204" fill="#d4c8a8" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+<text x="28" y="115" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif" transform="rotate(-90,28,115)">水屋へ</text>
+${mizusashi(95, 75, true)}
+${arrow(70, 75, 50, 75)}
+${lbl(140, 205, '茶道口をしめ切る')}`);
+
+// 56: 釜の蓋を清める
+SVG[56] = svg(`${room()}${kama(false)}
+<ellipse cx="227" cy="118" rx="22" ry="8" fill="#c8b89a" stroke="${PALETTE.ink}" stroke-width="1.3"/>
+<path d="M 210,118 Q 227,103 244,118" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+<path d="M 210,124 Q 227,138 244,124" fill="none" stroke="${PALETTE.gold}" stroke-width="1.5" stroke-dasharray="3,2"/>
+${lblL(80, 130, 'ユキブクサで')}
+${lblL(80, 145, '「マ」の字')}
+${lbl(140, 205, 'キリをかける')}`);
+
+// 57: 茶器・茶杓を取る
+SVG[57] = svg(`${room()}${kama()}
+${honza(125, 175)}
+${chaki(50, 205, true)}
+<rect x="38" y="210" width="40" height="3" fill="#c8a070" stroke="#6a4a20" stroke-width=".8"/>
+<rect x="20" y="20" width="60" height="35" rx="15" fill="${PALETTE.cloth}" stroke="#8b6a3a" stroke-width="1" opacity=".7"/>
+<text x="50" y="42" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif">客から</text>
+${lblL(85, 38, '挨拶を受け答礼')}
+${arrow(70, 205, 110, 175, '#888')}
+${lbl(140, 215, '茶器・茶杓を同時に取る')}`);
+
+// 58: 仕舞いの挨拶・退席
+SVG[58] = svg(`${room()}${kama()}
+<rect x="8" y="8" width="40" height="204" fill="#d4c8a8" stroke="${PALETTE.wall}" stroke-width="2.5"/>
+<text x="28" y="115" text-anchor="middle" font-size="9" fill="#5a4a30" font-family="serif" transform="rotate(-90,28,115)">茶道口</text>
+<ellipse cx="80" cy="125" rx="14" ry="9" fill="${PALETTE.flesh}"/>
+<ellipse cx="80" cy="110" rx="10" ry="12" fill="#e8d0b0"/>
+<line x1="67" y1="130" x2="60" y2="150" stroke="${PALETTE.flesh}" stroke-width="5" stroke-linecap="round"/>
+<line x1="93" y1="130" x2="100" y2="150" stroke="${PALETTE.flesh}" stroke-width="5" stroke-linecap="round"/>
+${lblL(115, 115, '「おたいくつ様でした」')}
+${lbl(140, 200, '一礼して退席')}`);
+
+// ============================================================
+// DATA
+// ============================================================
+const steps=[
+{id:1,phase:"準備",title:"入室の準備",text:"フクサを腰につけ、懐紙を懐中し、扇子を帯にさす。茶道口上座の膝頭に水指を置き、茶道口をあけ、扇子を居前に置き、「薄茶を差し上げます」と挨拶をする。",tip:'💬 「薄茶を差し上げます」'},
+{id:2,phase:"準備",title:"水指を運ぶ",text:"扇子を右手で取り、左手で扱い、右手で上座に置く。水指を帯の高さで持ち出し、道具畳中央・炉縁線上に座り、向こう半畳の中央、二つ目右に寄せて置く。",tip:"📌 水指は二つ目右に寄せる"},
+{id:3,phase:"準備",title:"茶器・茶碗を運ぶ",text:"右手で茶器、左手で茶碗（茶巾を草にたたんで入れ、茶筅を仕込む）を胸の高さで持ち出す。水指正面に茶器、畳の目三つ目左に離して茶碗を同時に置く（真置）。茶杓のかい先が水指の前側の線にかからぬよう、茶器と茶碗の中心を一直線に置く。",tip:"📌 茶器と茶碗の中心を一直線に（真置）"},
+{id:4,phase:"準備",title:"建水を運ぶ",text:"右手で蓋置・柄杓を仕込んだ建水を持ち出し、茶道口に向かって座り、茶道口をしめ切る。",tip:""},
+{id:5,phase:"道具を置く",title:"本座に座る",text:"本座（炉縁向こう左角と手前側左角から三分の一の延長線上）に座る。建水を膝上で左手に持ち替え、右手の親指が柄杓の合の節の裏になるように持ち、柄杓を取る。",tip:"📌 本座＝炉縁左角から三分の一の延長線上"},
+{id:6,phase:"道具を置く",title:"建水・蓋置を置く",text:"建水を炉縁の線から三分の一出し、畳へりから三つ目または五つ目に置く。蓋置を左手で取り、柄杓と持ち替え、右手で扱い、正面を向こうにし、炉縁右角・三つ目手前・三つ目右に置く。",tip:"📌 蓋置の正面を向こうに向ける"},
+{id:7,phase:"道具を置く",title:"柄杓を蓋置に置く",text:"柄杓の合を蓋置に置き、節で置く。",tip:""},
+{id:8,phase:"道具を置く",title:"挨拶（道具置合せ）",text:"居ずまいを直し、建水の位置をあらためて「どうぞお楽に」と挨拶をする。（道具置合せ 図１）",tip:'💬 「どうぞお楽に」'},
+{id:9,phase:"お点前の準備",title:"茶碗・茶器を移す",text:"左手で茶碗を取り、右手に持ち替え、炉縁左角から四分の一の前に置く。右手で茶器を取り、炉縁左角から三分の一の延長線上・居前に置く。（図２）",tip:"📌 茶碗は炉縁左角から四分の一前"},
+{id:10,phase:"お点前の準備",title:"茶器を清める（コキブクサ）",text:"コキブクサをして左手で茶器を取り、蓋を向こう・前と「マ」の字に清める。",tip:"📌 「マ」の字に清める"},
+{id:11,phase:"お点前の準備",title:"茶器の蓋を開ける",text:"茶器の蓋を半月に開け、中をあらため、フクサで茶器を軽く扱い、水指のハジキと炉縁左角を結んだ線の向こう側、中心より一つ目半左に置く。",tip:"📌 蓋は半月に開ける"},
+{id:12,phase:"お点前の準備",title:"茶杓を清める（タタミブクサ）",text:"タタミブクサをして、茶杓の切止を取り、茶杓の表・裏・脇と清めて、茶器の上・中央に置く。",tip:"📌 表・裏・脇の順に清める"},
+{id:13,phase:"お点前の準備",title:"茶筅を取り出す",text:"その手で茶筅を取り、茶器の右、三つ目に置く。（図３）",tip:"📌 茶器の右・三つ目に置く"},
+{id:14,phase:"お点前の準備",title:"水指の蓋を清め・茶巾を置く",text:"フクサを懐中するように折り返して、水指の蓋を「マ」の字に清める。フクサを左手に持たせて、右手で茶巾を、水指の蓋のハジキの手前に置く。",tip:""},
+{id:15,phase:"湯の準備",title:"柄杓を構える",text:"右手親指を節上にして柄杓を取り、左手のフクサと直角に交差して、右手でフクサを少し引き、左手で節の両脇を持ち、フクサを切止まで引き、構える。",tip:"📌 フクサと柄杓を直角に交差させる"},
+{id:16,phase:"湯の準備",title:"釜の蓋を清める・取る",text:"フクサで釜の蓋をしめ、向こう・前と「マ」の字に清めてから平らに引いて、蓋の先端で露を切って取り、蓋置に置き、フクサを懐中する。",tip:"📌 蓋を「マ」の字に清め、先端で露を切る"},
+{id:17,phase:"湯の準備",title:"湯を茶碗に入れる",text:"右手を切止から節に移して柄杓を持ち、合を水平にして釜の正面から、湯一柄杓汲んで、茶碗に入れる。",tip:"📌 合を水平に、湯一柄杓"},
+{id:18,phase:"湯の準備",title:"柄杓を釜にかける",text:"柄杓の合を起こして通い、合を伏せて釜にかけ、炉縁右角から三分の一に、指を返して節で置く。（図４ 柄杓のかけ方）",tip:"📌 炉縁右角から三分の一の位置に合を伏せて"},
+{id:19,phase:"湯の準備",title:"茶筅で「〆」の字・茶碗を引く",text:"右手で茶筅を取り、左手を茶碗に添えて、茶碗に「〆」の字をかいて、両手で茶碗を居前（本座の線上）に引く。",tip:"📌 「〆」の字をかいてから引く"},
+{id:20,phase:"茶碗を清める",title:"茶巾で絞る",text:"右手で茶巾を取り、掌に受け、向こう・前とたたんでから、建水の上でしぼる。茶巾を掌に受けさばいて向こうと広げ、たたみ直し、水指に戻す。",tip:"📌 向こう・前の順にたたむ"},
+{id:21,phase:"茶碗を清める",title:"茶筅通し",text:"茶筅通しをする。茶筅が畳と平行になるように、茶筅を「ゆ」の字に抜き、軽く露を打って元に戻す。",tip:"📌 「ゆ」の字に抜く"},
+{id:22,phase:"茶碗を清める",title:"茶碗を温める",text:"茶巾を添えて茶碗を取り、よくあたためて建水にこぼし、茶巾で茶碗を清め、中をあらためる。右手で茶碗を居前に置き、茶巾をすぐにたたんで水指に戻す。",tip:"📌 よく温めてからこぼす"},
+{id:23,phase:"茶を点てる",title:"茶杓・茶器を取る",text:"空手水をし、右手で茶杓を取り、引きながら、左手で茶器を取る。",tip:"📌 空手水をしてから取る"},
+{id:24,phase:"茶を点てる",title:"茶を掬う",text:"蓋を茶碗の右前に置き、茶を二すくい半入れ、軽く茶をさばき、茶杓を一つ打って茶を払い、茶碗に置く。",tip:"📌 二すくい半、茶杓を一つ打って払う"},
+{id:25,phase:"茶を点てる",title:"茶器を清める・蓋をする",text:"フクサで茶器の口を「マ」の字に清め、フクサを懐中する。蓋をしめて元に戻す。",tip:"📌 口を「マ」の字に清める"},
+{id:26,phase:"茶を点てる",title:"茶杓を拭う",text:"茶杓の切止を取り、節を扱って持ち、今一度茶をよくさばき、二つ打って、節を扱って茶器に置く。",tip:"📌 二つ打って茶器に置く"},
+{id:27,phase:"茶を点てる",title:"湯を入れる",text:"湯返しをして湯一柄杓汲み、茶碗に適量入れ、残りを戻し、釜にかけ、節で置く。",tip:"📌 湯返しをしてから適量を"},
+{id:28,phase:"茶を点てる",title:"茶を点てる",text:"茶筅を取り、茶を点てる。",tip:"🍵 茶を点てる"},
+{id:29,phase:"茶を出す",title:"茶碗を出す",text:"茶筅を元に戻し、右手で茶碗を取り、左掌に受け、中をあらためてから振り向け、右手で切畳に出す。",tip:"📌 中をあらためてから切畳に出す"},
+{id:30,phase:"茶を出す",title:"服加減の挨拶・茶巾を移す",text:"「結構でございます」と、客の服加減の挨拶を受け、茶巾を釜の蓋に移す。",tip:'💬 「結構でございます」'},
+{id:31,phase:"後半の準備",title:"水指の蓋を開ける",text:"右手で水指のハジキを取り、蓋をあける。建水の上で左手で持ち、右手で露を拭う。",tip:"📌 建水の上で露を拭う"},
+{id:32,phase:"後半の準備",title:"水指の蓋を立てかける",text:"右手で水指の蓋を持ち、水指の右側に立てかける。",tip:""},
+{id:33,phase:"後半の準備",title:"中水を入れる",text:"右手で柄杓の節の裏を取り起こして、左手で節の両脇を持ち（扱い柄杓）、構えて柄杓の合を起こして通い、水指より水を一杓汲み、中水を釜に入れ、湯返しをし、柄杓を節で置く。",tip:"📌 扱い柄杓で水を一杓"},
+{id:34,phase:"後半の準備",title:"茶碗が戻る・挨拶",text:"戻ってきた茶碗を右手で取り、左掌に受け、中をあらため、右手で居前に置き、「ごちそう様でした」と、客の挨拶を受ける。",tip:'💬 「ごちそう様でした」'},
+{id:35,phase:"後半の準備",title:"湯をすすぐ",text:"湯一柄杓汲んで茶碗に入れ、柄杓の合を起こして通い、釜に合を伏せてかけて、節で置く。",tip:"📌 湯一柄杓で茶碗をすすぐ"},
+{id:36,phase:"後半の準備",title:"お代わりを尋ねる",text:"右手で茶碗を取り、すすいで建水にこぼし、右手で居前に置き、「今一服如何ですか」と尋ねる。",tip:'💬 「今一服如何ですか」'},
+{id:37,phase:"お仕舞い",title:"仕舞いの挨拶",text:"「充分頂戴いたしました。どうぞお仕舞いください」と答えられたら「仕舞わせていただきます」と仕舞いの挨拶をし、水指より水を一柄杓汲む。",tip:'💬 「仕舞わせていただきます」'},
+{id:38,phase:"お仕舞い",title:"水を茶碗に入れる",text:"水一柄杓茶碗に入れ、柄杓を起こして通い、合を伏せて釜にかけ、節で置く。",tip:""},
+{id:39,phase:"お仕舞い",title:"茶筅をすすぐ",text:"右手で茶筅を取り、すすいで横から抜き、茶筅を元の位置に戻す。",tip:"📌 横から抜いて元の位置へ"},
+{id:40,phase:"お仕舞い",title:"茶碗・茶筅を片付ける",text:"右手で茶碗を取り、左掌に受け、建水にこぼし、茶巾を取り、建水の上で「し」の字を書いて置き、右手で茶碗を居前に置き、茶筅を茶碗に置く。",tip:"📌 「し」の字を書いて茶巾を置く"},
+{id:41,phase:"お仕舞い",title:"茶杓を清める",text:"タタミブクサをして茶杓のかい先を清め、建水の上で払う。フクサを裏に返して小指をあしらい、タタミブクサをして茶杓の裏・脇と清めて茶碗に置き、フクサを懐中する。",tip:"📌 表・裏・脇の順に清める"},
+{id:42,phase:"お仕舞い",title:"茶器を水指前に移す",text:"右手で、茶器の正面を横から持って、水指正面に移す。",tip:""},
+{id:43,phase:"お仕舞い",title:"茶碗を移す（水指前真置）",text:"右手で茶碗を取り、左手に持ち替えて、茶器の左、三つ目に置く。（水指前真置）",tip:"📌 茶器の左・三つ目に（水指前真置）"},
+{id:44,phase:"仕舞水",title:"仕舞水を汲む",text:"柄杓の節を持ち、合を伏せたまま水指に通い、水指の前縁に合を托して、汲むように持ち替え、水を汲む。（仕舞水）",tip:"📌 仕舞水：水指の前縁に合を托す"},
+{id:45,phase:"仕舞水",title:"水を釜に入れる",text:"柄杓を一直線に通い、水を釜に入れて、湯返しをする。",tip:""},
+{id:46,phase:"仕舞水",title:"突柄杓・釜の蓋をしめる",text:"突柄杓をして、柄杓を左手に構え、右手で釜の蓋をしめ、柄杓の合を蓋置に、節で置く。",tip:"📌 突柄杓で釜の蓋をしめる"},
+{id:47,phase:"道具を下げる",title:"水指の蓋をしめる",text:"右手で水指の蓋を持ち、建水の上で左手に持ち替え、右手でチリを払い、左手に持ち替え、右手でハジキを持ってしめる。",tip:"📌 チリを払ってからしめる"},
+{id:48,phase:"道具を下げる",title:"拝見の挨拶・柄杓・蓋置を置く",text:"「ご両器拝見」の挨拶を受け、一礼する。右手で柄杓・蓋置を持ち、切畳に向かい、右脇（畳と平行）に蓋置（膝頭の線）を置き、柄杓を置く。",tip:'💬 「ご両器拝見」'},
+{id:49,phase:"道具を下げる",title:"茶器・茶碗を移す",text:"右手で茶器を取り、左手で扱って切畳に向かい、右手で居前に置き、左手で茶碗を水指の正面に移す。",tip:""},
+{id:50,phase:"道具を下げる",title:"茶器を切畳に出す",text:"コキブクサをし、茶器を取り、蓋を開けて中をあらため、蓋を「マ」の字にし、左掌に受け、フクサを茶器の下にし、右手で茶器の正面を振り向け、切畳の中央に出す。",tip:"📌 切畳の中央に出す"},
+{id:51,phase:"道具を下げる",title:"茶杓を出す",text:"タタミブクサをし、茶杓を清めて出す。（図５）",tip:""},
+{id:52,phase:"道具を下げる",title:"フクサを腰につける",text:"フクサを右手で向こうからさばき、手前に返し、ワを取ってさばき、腰につける。",tip:""},
+{id:53,phase:"道具を下げる",title:"柄杓・蓋置を水屋へ",text:"右手で柄杓・蓋置を持ち、合を水平にしながら本座に戻り、柄杓の合を帯締めの高さで水屋にさげる。",tip:"📌 合を水平に保って水屋へ"},
+{id:54,phase:"道具を下げる",title:"茶碗を水屋へ",text:"すぐに出て水指に向かって座り、右手で茶碗を取り、左掌に受けて、水屋にさげる。",tip:""},
+{id:55,phase:"道具を下げる",title:"水指を水屋へ",text:"更に出て水指に向かって座り、水指を持ち、水屋にさげ、茶道口上座の膝頭に置き、茶道口をしめ切る。",tip:""},
+{id:56,phase:"道具の拝見",title:"釜の蓋を清める",text:"道具の拝見の終った頃出て、炉に向かって座り、ユキブクサをして、釜の蓋を「マ」の字に清め、キリをかける。",tip:"📌 ユキブクサで「マ」の字に"},
+{id:57,phase:"道具の拝見",title:"茶器・茶杓を受け取る",text:"フクサをさばいて腰につけ、切畳に向かい、挨拶を受けて答礼し、茶器・茶杓を同時に取る。",tip:""},
+{id:58,phase:"退席",title:"仕舞いの挨拶・退席",text:"茶器・茶杓を取って水屋にさげ、茶道口上座の膝頭に置く。右手で扇子を取り、左手で扱って右手で居前に置き、「おたいくつ様でした」と仕舞いの挨拶をする。茶道口をしめ切ってから、扇子を帯にさす。扇子の位置は敷居と膝頭の中間に置く。",tip:'💬 「おたいくつ様でした」'},
+];
+
+const phaseColors={"準備":"#4a6741","道具を置く":"#2e3f5c","お点前の準備":"#7a4a2e","湯の準備":"#5c3f7a","茶碗を清める":"#2e6a5a","茶を点てる":"#7a6030","茶を出す":"#2e4a7a","後半の準備":"#7a2e4a","お仕舞い":"#4a4a6a","仕舞水":"#2e6a6a","道具を下げる":"#5a6a30","道具の拝見":"#6a6a30","退席":"#5a4a30"};
+
+let cur=0, done=new Set();
+function startApp(){document.getElementById('landing').style.display='none';const a=document.getElementById('app');a.style.display='flex';a.style.flexDirection='column';render();}
+function goLanding(){document.getElementById('app').style.display='none';document.getElementById('landing').style.display='flex';}
+function render(){
+  const s=steps[cur];const c=phaseColors[s.phase]||'#4a6741';const pct=(cur/(steps.length-1))*100;
+  document.getElementById('cur-num').textContent=s.id;
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('phase-dot').style.background=c;
+  document.getElementById('phase-label').textContent=s.phase;
+  const ph=steps.filter(x=>x.phase===s.phase);const pos=ph.findIndex(x=>x.id===s.id)+1;
+  document.getElementById('phase-steps').textContent=pos+' / '+ph.length;
+  const isDone=done.has(cur);const db=document.getElementById('btn-done');
+  db.textContent=isDone?'✓ 完了':'完了';db.className='nav-btn btn-done'+(isDone?' active':'');
+  db.style.borderColor=c;db.style.color=isDone?'white':c;db.style.background=isDone?c:'white';
+  document.getElementById('btn-prev').disabled=cur===0;
+  document.getElementById('btn-next').disabled=cur===steps.length-1;
+  document.getElementById('step-content').innerHTML=`
+    <div class="step-num-row">
+      <div class="step-circle" style="border:1.5px solid ${c};color:${c}">${s.id}</div>
+      <div><div class="step-title">${s.title}</div>${isDone?'<div class="done-badge">✓ 完了</div>':''}</div>
+    </div>
+    <div class="illus-wrap">${SVG[s.id]||''}</div>
+    <div class="card">${s.text}</div>
+    ${s.tip?`<div class="tip">${s.tip}</div>`:''}
+    <div class="minimap-title">全手順マップ</div>
+    <div class="minimap">${steps.map((st,i)=>{const pc=phaseColors[st.phase]||'#4a6741';const bg=i===cur?pc:done.has(i)?pc+'70':'#e0d8c8';const fc=(i===cur||done.has(i))?'white':'#999';return `<div class="mini-dot" onclick="jump(${i})" style="background:${bg};color:${fc};border-color:${i===cur?pc:'transparent'}" title="${st.id}.${st.title}">${st.id}</div>`;}).join('')}</div>
+  `;
+}
+function go(d){if(d===1){done.add(cur);}const n=cur+d;if(n>=0&&n<steps.length){cur=n;render();window.scrollTo({top:0,behavior:'smooth'});}else if(d===1){showComplete();}}
+function jump(i){cur=i;render();window.scrollTo({top:0,behavior:'smooth'});}
+function toggleDone(){if(done.has(cur))done.delete(cur);else done.add(cur);render();}
+function showComplete(){document.getElementById('app').style.display='none';const c=document.getElementById('complete');c.style.display='flex';c.style.flexDirection='column';}
+function restart(){document.getElementById('complete').style.display='none';cur=0;done=new Set();startApp();}
+</script>
+</body>
+</html>
