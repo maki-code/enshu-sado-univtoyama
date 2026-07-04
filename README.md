@@ -1,1 +1,3 @@
-# enshu-sado-univtoyama
+薄茶点法手順ガイド
+
+HTMLのみで作成
